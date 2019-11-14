@@ -11,7 +11,7 @@
 	"miniprogramRoot": "dist/wx/",
 	"compileType": "miniprogram",
 	"appid": "touristappid",
-	"projectname": "mpvue-test2",
+	"projectname": "mpvue-template",
 	"simulatorType": "wechat",
 	"simulatorPluginLibVersion": {},
 	"condition": {

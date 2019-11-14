@@ -56,27 +56,6 @@ var exists = function (src, dst, callback) {
   })
 }
 
-if (!fs.existsSync(path.resolve(__dirname, '../static/wux'))) {
-  fs.mkdirSync(path.resolve(__dirname, '../static/wux'))
-}
-
-var to = path.resolve(__dirname, '../static/wux/index.js')
-if (!fs.existsSync(to)) {
-  fs.copyFileSync(path.resolve(__dirname, '../node_modules/wux-weapp/dist/index.js'), to)
-}
-to = path.resolve(__dirname, '../static/wux/countdown')
-if (!fs.existsSync(to)) {
-  exists(path.resolve(__dirname, '../node_modules/wux-weapp/dist/countdown'), to, copy)
-}
-to = path.resolve(__dirname, '../static/wux/countup')
-if (!fs.existsSync(to)) {
-  exists(path.resolve(__dirname, '../node_modules/wux-weapp/dist/countup'), to, copy)
-}
-to = path.resolve(__dirname, '../static/wux/helpers')
-if (!fs.existsSync(to)) {
-  exists(path.resolve(__dirname, '../node_modules/wux-weapp/dist/helpers'), to, copy)
-}
-
 let baseWebpackConfig = {
   // 如果要自定义生成的 dist 目录里面的文件路径，
   // 可以将 entry 写成 {'toPath': 'fromPath'} 的形式，
