@@ -33,7 +33,10 @@ export default {
 }
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
+  p{
+    color: red;
+  }
 .counter-warp {
   text-align: center;
   margin-top: 100px;

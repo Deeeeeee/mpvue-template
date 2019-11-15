@@ -8,7 +8,7 @@ import App from './App'
 Vue.use(MpvueRouterPatch)
 
 Vue.prototype.$wx = WXP
-Vue.prototype.$http = fly;
+Vue.prototype.$http = fly
 
 Vue.config.productionTip = false
 

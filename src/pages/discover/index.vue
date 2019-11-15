@@ -1,6 +1,5 @@
 <template>
   <div>
-    <p>text</p>
     <van-button @click="login">登录</van-button>
     <br>
     <van-button @click="userInfo">用户信息</van-button>

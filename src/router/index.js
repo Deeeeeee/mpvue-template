@@ -1,10 +1,10 @@
 module.exports = {
   pages: [
     {
-      path: 'pages/login/authorize'
+      path: 'pages/my/index'
     },
     {
-      path: 'pages/index'
+      path: 'pages/login/wxLogin'
     },
     {
       path: 'pages/logs',
@@ -36,7 +36,7 @@ module.exports = {
     list: [
       {
         text: '我的学习',
-        pagePath: 'pages/index',
+        pagePath: 'pages/my/index',
         iconPath: 'static/images/tabs/study.png',
         selectedIconPath: 'static/images/tabs/study_active.png'
       },
@@ -58,6 +58,7 @@ module.exports = {
   // 全局引入组件
   usingComponents: {
     // 'wux-search-bar': '../static/wux/search-bar/index',
-    'van-button': 'vant-weapp/dist/button/index'
+    'van-button': 'vant-weapp/dist/button/index',
+    'van-nav-bar': 'vant-weapp/dist/nav-bar/index'
   }
 }
