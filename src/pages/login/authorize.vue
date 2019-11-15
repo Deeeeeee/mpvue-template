@@ -1,20 +1,9 @@
 <template>
   <div>
-      <swiper v-if="imgUrls.length > 0" indidator-dots="imgUrls.length > 1" >
-      <block v-for="(item, index) in imgUrls" :key="index" >
-        <swiper-item>
-          <image :src="item" mode="scaleToFill"></image>
-        </swiper-item>
-      </block>
-    </swiper>
+    <van-button @click="login">登录</van-button>
+    <br>
+    <van-button @click="userInfo">用户信息</van-button>
 
-    <ul class="container log-list">
-      <li v-for="(log, index) in logs" :class="{ red: aa }" :key="index" class="log-item">
-        <card :text="(index + 1) + ' . ' + log"></card>
-      </li>
-    </ul>
-
-    <van-button @click="back">返回</van-button>
   </div>
 </template>
 
@@ -47,18 +36,32 @@ export default {
     }
     this.logs = logs.map(log => formatTime(new Date(log)))
   },
-  onLoad() {
-    // wx.hideTabBar()
-  },
-  onUnload() {
-    // wx.showTabBar()
-  },
   methods: {
-    back() {
+    login() {
       console.log(1)
-      // wx.navigateBack()
-      wx.switchTab({
-        url: '/pages/index'
+      wx.login({
+        success (res) {
+          if (res.code) {
+            //发起网络请求
+            console.log(res.code)
+            // wx.request({
+            //   url: 'https://test.com/onLogin',
+            //   data: {
+            //     code: res.code
+            //   }
+            // })
+          } else {
+            console.log('登录失败！' + res.errMsg)
+          }
+        }
+      })
+    },
+    userInfo() {
+      console.log(1)
+      wx.getUserInfo({
+        success (res) {
+          console.log(res)
+        }
       })
     }
   }

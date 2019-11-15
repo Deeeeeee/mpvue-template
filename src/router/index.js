@@ -1,6 +1,9 @@
 module.exports = {
   pages: [
     {
+      path: 'pages/login/authorize'
+    },
+    {
       path: 'pages/index'
     },
     {
@@ -30,22 +33,31 @@ module.exports = {
     backgroundColor: '#fafafa',
     selectedColor: '#333',
     borderStyle: 'white',
-    list: [{
-      text: '首页',
-      pagePath: 'pages/index',
-      iconPath: 'static/tabs/home.png',
-      selectedIconPath: 'static/tabs/home-active.png'
-    }, {
-      text: '订单',
-      pagePath: 'pages/logs',
-      iconPath: 'static/tabs/orders.png',
-      selectedIconPath: 'static/tabs/orders-active.png'
-    }],
+    list: [
+      {
+        text: '我的学习',
+        pagePath: 'pages/index',
+        iconPath: 'static/images/tabs/study.png',
+        selectedIconPath: 'static/images/tabs/study_active.png'
+      },
+      {
+        text: '发现',
+        pagePath: 'pages/logs',
+        iconPath: 'static/images/tabs/discover.png',
+        selectedIconPath: 'static/images/tabs/discover_active.png'
+      },
+      {
+        text: '我的',
+        pagePath: 'pages/logs',
+        iconPath: 'static/images/tabs/my.png',
+        selectedIconPath: 'static/images/tabs/my_active.png'
+      }
+    ],
     position: 'bottom'
   },
   // 全局引入组件
   usingComponents: {
     // 'wux-search-bar': '../static/wux/search-bar/index',
-    "van-button": "vant-weapp/dist/button/index"
+    'van-button': 'vant-weapp/dist/button/index'
   }
 }
