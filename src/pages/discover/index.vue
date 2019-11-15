@@ -1,67 +1,63 @@
 <template>
-  <div>
-    <van-button @click="login">登录</van-button>
-    <br>
-    <van-button @click="userInfo">用户信息</van-button>
-
+  <div class="main-container">
+    <ul class="base-list">
+      <li v-for="(item,index) in list" :key="index">
+       {{item.name}}
+      </li>
+    </ul>
   </div>
 </template>
 
 <script>
-import { formatTime } from '@/utils/index'
-import card from '@/components/card'
-
+import {openClassList} from '@/api/openClass'
 export default {
   components: {
-    card
   },
-
   data () {
     return {
-      logs: [],
-      imgUrls: [
-        'http://mss.sankuai.com/v1/mss_51a7233366a4427fa6132a6ce72dbe54/newsPicture/05558951-de60-49fb-b674-dd906c8897a6',
-        'http://mss.sankuai.com/v1/mss_51a7233366a4427fa6132a6ce72dbe54/coursePicture/0fbcfdf7-0040-4692-8f84-78bb21f3395d',
-        'http://mss.sankuai.com/v1/mss_51a7233366a4427fa6132a6ce72dbe54/management-school-picture/7683b32e-4e44-4b2f-9c03-c21f34320870'
-      ]
+      list: [],
+      searchParams: {
+        page: 1,
+        size: 10
+      },
+      loading: false,
+      finished: false,
+      finishedText: '没有更多了',
+      noData: false
     }
   },
-
-  created () {
-    let logs
-    if (mpvuePlatform === 'my') {
-      logs = mpvue.getStorageSync({key: 'logs'}).data || []
-    } else {
-      logs = mpvue.getStorageSync('logs') || []
-    }
-    this.logs = logs.map(log => formatTime(new Date(log)))
+  onLoad () {
+    this.getData()
+  },
+  onPullDownRefresh() {
+    console.log('> 刷新中...')
+    this.getData()
+  },
+  onReachBottom() {
+    console.log('> 触底 load more...')
   },
   methods: {
-    login() {
-      console.log(1)
-      wx.login({
-        success (res) {
-          if (res.code) {
-            //发起网络请求
-            console.log(res.code)
-            // wx.request({
-            //   url: 'https://test.com/onLogin',
-            //   data: {
-            //     code: res.code
-            //   }
-            // })
-          } else {
-            console.log('登录失败！' + res.errMsg)
-          }
+    /**
+     * 获取数据
+     * @param isRefresh {boolean} 是否刷新
+     */
+    getData (isRefresh) {
+      // this.searchParams = {...this.searchParams, ...this.searchParams}
+      // this.loading = true
+      // this.noData = false
+      if (isRefresh) {
+        this.searchParams.page = 1
+      }
+      openClassList(this.searchParams).then(({ data }) => {
+        wx.stopPullDownRefresh()
+        if (isRefresh) {
+          this.list = data.array || []
+        } else {
+          this.list = [...this.list, ...data.array || []]
         }
-      })
-    },
-    userInfo() {
-      console.log(1)
-      wx.getUserInfo({
-        success (res) {
-          console.log(res)
-        }
+        this.searchParams.page += 1
+      }).catch(() => {
+        wx.stopPullDownRefresh()
       })
     }
   }
@@ -69,7 +65,7 @@ export default {
 }
 </script>
 
-<style>
+<style lang="less">
 .log-list {
   display: flex;
   flex-direction: column;

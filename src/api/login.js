@@ -1,4 +1,4 @@
-import fly from '@/utils/flyio'
+import fly from '@/utils/fly'
 
 // 登录
 export const login = data => fly.post('/puzzle/api/organize/app/person/login', data)
