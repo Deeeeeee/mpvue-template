@@ -4,7 +4,7 @@
       <van-tab v-for="(item,index) in tabs" :title="item.description" :key="index"></van-tab>
     </van-tabs>
     <view class="lesson-list">
-      <view class="lesson-item" v-for="(item,index) in list" :key="index">
+      <view class="lesson-item" v-for="(item,index) in scrollList" :key="index">
         <view class="item-image-wrap">
           <image class="img" v-if="item.images" mode="aspectFill" :src="item.images[0]" alt=""></image>
 
@@ -50,9 +50,9 @@
       </view>
       <!--底部状态-->
       <view class="list-status tc">
-        <view v-if="loading">加载中...</view>
-        <view v-if="noData">暂无数据</view>
-        <view v-if="finished">没有更多了</view>
+        <view v-if="scrollStatus.loading">加载中...</view>
+        <view v-if="scrollStatus.nodata">暂无数据</view>
+        <view v-if="scrollStatus.ended">没有更多了</view>
       </view>
     </view>
 
@@ -63,7 +63,8 @@
 </template>
 
 <script>
-  import { coursePersonList } from '@/api/study'
+  // import { coursePersonList } from '@/api/study'
+  import ScrollList from '@/mixin/ScrollList'
 
   export default {
     components: {},
@@ -75,50 +76,21 @@
           {code: 100, description: '未开始'},
           {code: 102, description: '已结束'}
         ],
-        list: [],
-        searchParams: {
-          page: 1,
-          size: 10,
+        scrollApi: '/newtrain/api/organize/app/coursePerson/list',
+        scrollOutParams: {
           allotStatus: ''
-        },
-        loading: false,
-        finished: false,
-        noData: false
+        }
       }
     },
+    mixins: [ScrollList],
     onLoad () {
-      this.getData()
-    },
-    onPullDownRefresh () {
-      console.log('> 刷新中...')
-      this.getData(true)
-    },
-    onReachBottom () {
-      console.log('> 触底 load more...')
-      this.getData()
     },
     methods: {
-      percentage (row) {
-        if (row.classHourLearn) {
-          let p = (row.classHourLearn / row.classHourTotal * 100).toFixed(2) * 1
-          if (p >= 100) {
-            p = 100
-          }
-          // console.log((row.classHourLearn / row.classHourTotal * 100).toFixed(2) * 1)
-          // console.log((row.classHourLearn / row.classHourTotal * 100).toFixed(2) * 1)
-          return p
-        } else {
-          return 0
-        }
-      },
-
       handleTabChange (event) {
         // console.log(event)
         // let value = this.tabs[event.mp.detail.index].code
-        this.searchParams.allotStatus = this.tabs[event.mp.detail.index].code
-        this.searchParams.page = 1
-        this.list = []
-        this.getData()
+        this.scrollOutParams.allotStatus = this.tabs[event.mp.detail.index].code
+        this.scrollRefresh(true)
       },
 
       handleStudy (item) {
@@ -128,32 +100,7 @@
         //   query: { coursePersonId: item.coursePersonId, personId: item.personId }
         // })
       },
-      /**
-       * 获取数据
-       * @param isRefresh {boolean} 是否刷新
-       */
-      getData (isRefresh) {
-        this.loading = true
-        this._resetLoadingStatus()
-        if (isRefresh) {
-          this.searchParams.page = 1
-        }
-        coursePersonList(this.searchParams).then(({ data }) => {
-          wx.stopPullDownRefresh()
-          this.loading = false
-          this._setLoadingStatus(this.searchParams.page, this.searchParams.size, data.array)
-          if (isRefresh) {
-            this.list = this._format(data.array)
-          } else {
-            this.list = [...this.list, ...this._format(data.array)]
-          }
-          this.searchParams.page += 1
-        }).catch(() => {
-          this.loading = false
-          wx.stopPullDownRefresh()
-        })
-      },
-      _format (arr) {
+      _scrollFormat (arr) {
         if (!arr) return []
         return arr.map(item => {
           item.startTime = this.$Moment(item.startTime, 'YYYY.MM.DD')
@@ -170,20 +117,6 @@
           }
           return item
         })
-      },
-      _setLoadingStatus(page, size, arr) {
-        console.log(arr)
-        console.log(size)
-        console.log(page)
-        if (page === 1 && arr.length === 0) {
-          this.noData = true
-        } else if (arr.length < size) {
-          this.finished = true
-        }
-      },
-      _resetLoadingStatus() {
-        this.noData = false
-        this.finished = false
       }
     }
 
