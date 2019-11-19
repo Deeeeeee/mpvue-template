@@ -10,8 +10,6 @@
       </li>
     </ul>
     <!--验证码登录-->
-    {{postForm.username}}
-    {{postForm.captcha}}
     <view class="captcha-box" v-show="active === 1">
       <view class="form-item">
         <span class="pre-phone">+86</span>
@@ -63,8 +61,7 @@
         <h3>找回密码</h3>
         <p>通过您绑定的手机号找回密码</p>
         <view class="form-item">
-          <van-field :maxlength="11" type="number" input-align="center" class="w-100" v-model="forgetForm.phone"
-                     placeholder="请输入手机号" :clearable="true"></van-field>
+          <input :maxlength="11" type="number" class="w-100" v-model="forgetForm.phone" placeholder="请输入手机号"/>
         </view>
         <van-button class="mt50" custom-class="login-btn w-100" type="primary" round :disabled="forgetFirstDisabled"
                     @click="getForgetCaptcha">下一步
@@ -81,13 +78,14 @@
         <h3>请输入验证码</h3>
         <p>我们已发送了验证码到您的手机</p>
         <view class="form-item captcha-form-item">
-          <van-password-input :length="4"
-                              v-model="forgetForm.captcha"
-                              :mask="false" gutter="30px"
-                              :focused="showKeyboard"
-                              @focus="showKeyboard = true"></van-password-input>
-          <van-number-keyboard v-model="forgetForm.captcha" :show="showKeyboard"
-                               @blur="showKeyboard = false"></van-number-keyboard>
+          <input type="number" v-model="forgetForm.captcha" :maxlength="4">
+          <!--<van-password-input :length="4"-->
+                              <!--v-model="forgetForm.captcha"-->
+                              <!--:mask="false" gutter="30px"-->
+                              <!--:focused="showKeyboard"-->
+                              <!--@focus="showKeyboard = true"></van-password-input>-->
+          <!--<van-number-keyboard v-model="forgetForm.captcha" :show="showKeyboard"-->
+                               <!--@blur="showKeyboard = false"></van-number-keyboard>-->
         </view>
         <van-button class="mt50" custom-class="login-btn w-100" type="primary" size="large" round
                     :disabled="forgetSecondDisabled" @click="checkCaptcha">下一步
@@ -145,8 +143,8 @@
         forgetFirstDisabled: true,
         forgetForm: {
           type: 102,
-          phone: '',
-          captcha: ''
+          phone: '13211112222',
+          captcha: '4545'
         },
         // 验证码
         forgetCaptchaVisible: false,
@@ -268,9 +266,7 @@
             // setStore('LOGIN_NEXT_PATH', '')
             this.$router.push(next)
           } else {
-            wx.switchTab({
-              url: '/pages/study/index'
-            })
+            this.goIndex()
           }
         }).catch(() => {
         })
@@ -318,7 +314,7 @@
         }).then(res => {
           this.$store.commit('SET_USER_INFO', res.data)
           this.$store.commit('SET_TOKEN', res.data.accesstoken)
-          this.$router.push('/person')
+          this.goIndex()
         }).catch(() => {
         })
       },
@@ -330,6 +326,11 @@
           // setStore('INVITATION_ROOT_ID', '')
           this.$store.commit('SET_ROOT_ID', { rootId: invitationRootId })
         }
+      },
+      goIndex() {
+        wx.switchTab({
+          url: '/pages/study/index'
+        })
       }
     }
 

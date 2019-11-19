@@ -1,3 +1,5 @@
+import moment from 'moment'
+
 function formatNumber (n) {
   const str = n.toString()
   return str[1] ? str : `0${str}`
@@ -16,6 +18,11 @@ export function formatTime (date) {
   const t2 = [hour, minute, second].map(formatNumber).join(':')
 
   return `${t1} ${t2}`
+}
+
+export function Moment (value, format) {
+  if (!value) { return '' }
+  return moment(value).format(format)
 }
 
 /**
@@ -72,5 +79,6 @@ export default {
   formatNumber,
   formatTime,
   deepClone,
-  setVal
+  setVal,
+  Moment
 }

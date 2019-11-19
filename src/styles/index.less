@@ -2,21 +2,25 @@
 @import "./_common.less";
 @import "./_mixin.less";
 
+view,ul,li,p,h1,h2,h3,h4,h5,a,span,b,em,i{
+  box-sizing: border-box;
+}
+
 // 间距相关
 .mt10{
-  margin-top: 10rpx;
+  margin-top: 10px;
 }
 .mt20{
-  margin-top: 20rpx;
+  margin-top: 20px;
 }
 .mt30{
-  margin-top: 30rpx;
+  margin-top: 30px;
 }
 .mt50{
-  margin-top: 50rpx;
+  margin-top: 50px;
 }
 .mt100{
-  margin-top: 100rpx;
+  margin-top: 100px;
 }
 .w-50{
   width: 50%;
@@ -25,8 +29,14 @@
   width: 100%;
 }
 // 文字相关
-.fs12 {
-  font-size: 12px;
+.fs24 {
+  font-size: 24px;
+}
+.fs28 {
+  font-size: 28px;
+}
+.fs32 {
+  font-size: 32px;
 }
 .c-red {
   color: #EC5F5F !important;
@@ -60,4 +70,10 @@
 
 .tr {
   text-align: right;
+}
+
+.line-ellipsis{
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }

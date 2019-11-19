@@ -1,10 +1,11 @@
 @import "_variate";
 
+.van-tabs{
+  background-color: #fff;
+}
 .van-tabs__nav{
-  width: 500rpx;
-  margin: 0 auto;
   .van-tab{
-    font-size: 36rpx;
+    font-size: 30px;
     color: #999;
   }
   .van-tab--active{
@@ -21,5 +22,29 @@
 .van-hairline--top-bottom:after,
 .van-hairline--top:after,
 .van-hairline:after{
-  border: 0 !important;
+  border-color: #D7D7D7 !important;
+}
+
+
+button{
+  &::after{
+    border: none!important;
+  }
+}
+button[size=mini] {
+  //display: inline-block;
+  //line-height: 2.3;
+  //font-size: 13px;
+  //padding: 0 1.34em;
+
+}
+button[disabled]{
+  background-color: #CCCCCC !important;
+  color: #FFF;
+}
+button[type="primary"]{
+  background-color: @theme;
+  border-color: @theme;
+  color: #fff;
+  border-radius: 4px;
 }

@@ -2,6 +2,12 @@ module.exports = {
   pages: [
 
     {
+      path: 'pages/study/index',
+      config: {
+        enablePullDownRefresh: true
+      }
+    },
+    {
       path: 'pages/login/login',
       config: {
         navigationBarTitleText: '登录'
@@ -10,7 +16,7 @@ module.exports = {
     {
       path: 'pages/login/index',
       config: {
-        navigationBarTitleText: '登录'
+        navigationBarTitleText: '微信登录'
       }
     },
     {
@@ -19,9 +25,12 @@ module.exports = {
         enablePullDownRefresh: true
       }
     },
-    {
-      path: 'pages/study/index'
-    },
+    // {
+    //   path: 'pages/study/index',
+    //     config: {
+    //   enablePullDownRefresh: true
+    // }
+    // },
     {
       path: 'pages/my/index'
     },
@@ -43,8 +52,9 @@ module.exports = {
   window: {
     backgroundTextStyle: 'light',
     navigationBarBackgroundColor: '#fff',
-    navigationBarTitleText: 'WeChat',
-    navigationBarTextStyle: 'black'
+    navigationBarTitleText: '学智云',
+    navigationBarTextStyle: 'black',
+    backgroundColor: '#EDEFF1'
   },
   tabBar: {
     color: '#999',

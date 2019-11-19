@@ -10,22 +10,22 @@
        * 支付宝(蚂蚁)：mpvue === my, mpvuePlatform === 'my'
        */
 
-      let logs
-      if (mpvuePlatform === 'my') {
-        logs = mpvue.getStorageSync({ key: 'logs' }).data || []
-        logs.unshift(Date.now())
-        mpvue.setStorageSync({
-          key: 'logs',
-          data: logs
-        })
-      } else {
-        logs = mpvue.getStorageSync('logs') || []
-        logs.unshift(Date.now())
-        mpvue.setStorageSync('logs', logs)
-      }
+      // let logs
+      // if (mpvuePlatform === 'my') {
+      //   logs = mpvue.getStorageSync({ key: 'logs' }).data || []
+      //   logs.unshift(Date.now())
+      //   mpvue.setStorageSync({
+      //     key: 'logs',
+      //     data: logs
+      //   })
+      // } else {
+      //   logs = mpvue.getStorageSync('logs') || []
+      //   logs.unshift(Date.now())
+      //   mpvue.setStorageSync('logs', logs)
+      // }
     },
     log () {
-      console.log(`log at:${Date.now()}`)
+      // console.log(`log at:${Date.now()}`)
     }
   }
 </script>
@@ -38,9 +38,11 @@
     height: 100%;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    background-color: #fefefe;
+    /*align-items: center;*/
+    justify-content: center;
+    background-color: #EDEFF1;
     box-sizing: border-box;
+    color: #333;
   }
 
   /* this rule will be remove */
