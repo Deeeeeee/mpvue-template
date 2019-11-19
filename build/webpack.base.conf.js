@@ -97,7 +97,7 @@ let baseWebpackConfig = {
       },
       {
         test: /\.less$/,
-        loader: 'style-loader!css-loader!less-loader',
+        loader: 'style-loader!css-loader!less-loader!px2rpx-loader?rpxUnit=75&rpxPrecision=8',
       },
       {
         test: /\.js$/,

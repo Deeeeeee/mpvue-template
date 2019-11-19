@@ -1,5 +1,18 @@
 module.exports = {
   pages: [
+
+    {
+      path: 'pages/login/login',
+      config: {
+        navigationBarTitleText: '登录'
+      }
+    },
+    {
+      path: 'pages/login/index',
+      config: {
+        navigationBarTitleText: '登录'
+      }
+    },
     {
       path: 'pages/discover/index',
       config: {
@@ -24,10 +37,6 @@ module.exports = {
     {
       path: 'pages/counter',
       config: {
-        // usingComponents: {
-        //   "wux-icon": "../static/wux/icon/index",
-        //   "wux-button": "../static/wux/button/index"
-        // }
       }
     }
   ],
@@ -70,6 +79,11 @@ module.exports = {
     'van-button': 'vant-weapp/dist/button/index',
     'van-nav-bar': 'vant-weapp/dist/nav-bar/index',
     'van-cell': 'vant-weapp/dist/cell/index',
-    'van-cell-group': 'vant-weapp/dist/cell-group/index'
+    'van-cell-group': 'vant-weapp/dist/cell-group/index',
+    'van-tab': 'vant-weapp/dist/tab/index',
+    'van-tabs': 'vant-weapp/dist/tabs/index',
+    'van-field': 'vant-weapp/dist/field/index',
+    'van-popup': 'vant-weapp/dist/popup/index',
+    'van-icon': 'vant-weapp/dist/icon/index'
   }
 }

@@ -33,13 +33,13 @@
 <style lang="less">
   @import './styles/index.less';
 
-  .container {
+  .page {
+    padding: 0 40px;
     height: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-between;
-    padding: 200rpx 0;
+    background-color: #fefefe;
     box-sizing: border-box;
   }
 

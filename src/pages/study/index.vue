@@ -1,10 +1,11 @@
 <template>
-  <div>
-    <van-button @click="login">登录</van-button>
-    <br>
-    <van-button @click="userInfo">用户信息</van-button>
+  <view class="page page-study">
+   我的学习
+    <navigator url="/page/login/index">
+      去登陆
+    </navigator>
 
-  </div>
+  </view>
 </template>
 
 <script>
