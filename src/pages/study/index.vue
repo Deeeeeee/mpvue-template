@@ -35,12 +35,13 @@
               <view class="study-status c-green" v-if="item.status === 103">已通过</view>
               <view class="study-status c-999" v-if="item.status === 104">未通过</view>
             </view>
+            <!--{{item.allotStatus}}-{{item.status}}-->
             <view>
-              <button type="primary" v-if="item.allotStatus === 101 && item.status === 100"
-                      @click.stop="handleStudy(item)">开始学习
+              <button type="primary" size="mini" v-if="item.allotStatus === 101 && item.status === 100"
+                      >开始学习
               </button>
-              <button type="primary" v-if="item.allotStatus === 101 && [101,103,104].indexOf(item.status) > -1"
-                      @click.stop="handleStudy(item)">继续学习
+              <button type="primary" size="mini" v-if="item.allotStatus === 101 && (item.status === 101 || item.status === 103 || item.status === 104)"
+                      >继续学习
               </button>
               <button type="primary"  size="mini" v-if="item.allotStatus === 100 && item.status === 100" disabled>开始学习
               </button>
@@ -87,8 +88,6 @@
     },
     methods: {
       handleTabChange (event) {
-        // console.log(event)
-        // let value = this.tabs[event.mp.detail.index].code
         this.scrollOutParams.allotStatus = this.tabs[event.mp.detail.index].code
         this.scrollRefresh(true)
       },
@@ -202,6 +201,10 @@
           margin: 20px 0;
         }
         .item-info-footer{
+          display: flex;
+          flex-direction: row;
+          justify-content: space-between;
+          align-items: baseline;
 
         }
       }

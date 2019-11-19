@@ -11,7 +11,7 @@
  * scrollParams {object} 存放基础请求信息 可被外部参数 覆盖
  * scrollStatus {object} 存放滚动状态
  * ======== *注意事项* ========
- * 被混入的页面内勿使用相同命名
+ * 被混入的页面内勿使用相同变量及方法命名
  */
 
 import fly from '@/utils/fly'
@@ -78,9 +78,9 @@ export default {
       this.scrollGetData(true)
     },
     _setLoadingStatus(page, size, arr) {
-      console.log(arr)
-      console.log(size)
-      console.log(page)
+      // console.log(arr)
+      // console.log(size)
+      // console.log(page)
       if (page === 1 && arr.length === 0) {
         this.scrollStatus.nodata = true
       } else if (arr.length < size) {

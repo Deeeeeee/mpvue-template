@@ -50,3 +50,9 @@ mpvue小程序框架，在[mpvue-quickstart](https://github.com/mpvue/mpvue-quic
 更多详细文档请查阅 [quickstart](http://mpvue.com/mpvue/quickstart/)。
 
 bug 或者交流建议等请反馈到 [mpvue/issues](https://gitee.com/hkgit/vue_miniprogram/issues)。
+
+## 注意事项
+1. 模板中不支持复杂运算 不支持使用 methods中的方法
+2. 不支持filters 建议在获得数据时先处理好
+3. 组件中不支持scoped
+4. 
