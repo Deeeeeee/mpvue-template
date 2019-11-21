@@ -1,29 +1,22 @@
 <template>
   <view class="page">
-      <van-nav-bar title="我的学习" custom-class="header" fixed >
-        <view class="exam-box" slot="right" @click="goExam">
-          <view class="icon-tag">9</view>
-          <image class="icon-exam" src="/static/images/study/icon_exam.png"></image>
-        </view>
-      </van-nav-bar>
-      <van-tabs class="tabs w-100" @change="handleTabChange">
-        <van-tab v-for="(item,index) in tabs" :title="item.description" :key="index"></van-tab>
-      </van-tabs>
+    <van-tabs class="tabs w-100" @change="handleTabChange">
+      <van-tab v-for="(item,index) in tabs" :title="item.description" :key="index"></van-tab>
+    </van-tabs>
     <view class="lesson-list">
       <view class="lesson-item" v-for="(item,index) in scrollList" :key="index">
         <view class="item-image-wrap">
-          <image class="img" v-if="item.images" mode="aspectFill" :src="item.images[0] + '?imageView2/2/w/250'" alt=""></image>
+          <image class="img" v-if="item.image" mode="aspectFill" :src="item.image + '?imageView2/2/w/250'" alt=""></image>
           <image class="img" v-else mode="aspectFill" src="/static/images/study/default.png" alt=""></image>
-
-          <view class="item-status default" v-if="item.allotStatus === 100">
+          <view class="item-status default" v-if="item.paperType === 100">
             <image class="status" src="/static/images/study/status_default.png"></image>
             <text class="text">未开始</text>
           </view>
-          <view class="item-status success" v-if="item.allotStatus === 101">
+          <view class="item-status success" v-if="item.paperType === 101">
             <image class="status" src="/static/images/study/status_success.png"></image>
             <text class="text">进行中</text>
           </view>
-          <view class="item-status error" v-if="item.allotStatus === 102">
+          <view class="item-status error" v-if="item.paperType === 102">
             <image class="status" src="/static/images/study/status_error.png"></image>
             <text class="text">已结束</text>
           </view>
@@ -36,21 +29,22 @@
           <view class="item-title line-ellipsis">{{ item.name }}</view>
           <view class="f28 c-999" v-if="item.courseTime"></view>
           <view class="f28 c-999" v-else>{{item.startTime}}-{{item.endTime}}</view>
-          <progress :percent="item.percent" border-radius="4px" activeColor="#46AE84"  show-info />
+          <progress :percent="item.percent" border-radius="4px" activeColor="#46AE84" show-info/>
           <view class="item-info-footer">
-            <view v-if="item.allotStatus === 102 || item.allotStatus === 101">
+            <view v-if="item.paperType === 102 || item.paperType === 101">
               <view class="study-status c-green" v-if="item.status === 103">已通过</view>
               <view class="study-status c-999" v-if="item.status === 104">未通过</view>
             </view>
-            <!--{{item.allotStatus}}-{{item.status}}-->
+            <!--{{item.paperType}}-{{item.status}}-->
             <view>
-              <button type="primary" size="mini" v-if="item.allotStatus === 101 && item.status === 100"
-                      >开始学习
+              <button type="primary" size="mini" v-if="item.paperType === 101 && item.status === 100"
+              >开始学习
               </button>
-              <button type="primary" size="mini" v-if="item.allotStatus === 101 && (item.status === 101 || item.status === 103 || item.status === 104)"
-                      >继续学习
+              <button type="primary" size="mini"
+                      v-if="item.paperType === 101 && (item.status === 101 || item.status === 103 || item.status === 104)"
+              >继续学习
               </button>
-              <button type="primary"  size="mini" v-if="item.allotStatus === 100 && item.status === 100" disabled>开始学习
+              <button type="primary" size="mini" v-if="item.paperType === 100 && item.status === 100" disabled>开始学习
               </button>
             </view>
           </view>
@@ -65,13 +59,14 @@
     </view>
 
     <!--<navigator url="/pages/login/index">-->
-      <!--去登陆-->
+    <!--去登陆-->
     <!--</navigator>-->
   </view>
 </template>
 
 <script>
-  // import { coursePersonList } from '@/api/study'
+  import { listByStaffCount } from '@/api/study'
+
   import ScrollList from '@/mixin/ScrollList'
 
   export default {
@@ -79,27 +74,31 @@
     data () {
       return {
         tabs: [
-          {code: '', description: '全部'},
-          {code: 101, description: '进行中'},
-          {code: 100, description: '未开始'},
-          {code: 102, description: '已结束'}
+          { code: 100, description: '待考试' },
+          { code: 101, description: '已完成' },
+          { code: 102, description: '已失效' }
         ],
-        scrollApi: '/newtrain/api/organize/app/coursePerson/list',
+        testNumber: [],
+        scrollApi: '/puzzle/api/organize/app/answer/paper/list/listByStaff',
         scrollOutParams: {
-          allotStatus: ''
+          paperType: 100
         }
       }
     },
     mixins: [ScrollList],
     onLoad () {
+      this.getTestNumber()
     },
     methods: {
-      goExam() {
-        console.log(1)
-        wx.navigateTo({url: '/pages/study/exam/index'})
+      getTestNumber () {
+        listByStaffCount().then(({ data }) => {
+          this.tabs[0].description += `(${data.beginCount})`
+          this.tabs[1].description += `(${data.finishCount})`
+          this.tabs[2].description += `(${data.cancelCount})`
+        })
       },
       handleTabChange (event) {
-        this.scrollOutParams.allotStatus = this.tabs[event.mp.detail.index].code
+        this.scrollOutParams.paperType = this.tabs[event.mp.detail.index].code
         this.scrollRefresh(true)
       },
 
@@ -135,39 +134,12 @@
 
 <style lang="less" scoped>
   .page {
-    padding: 176px 0 0;
-    /*padding: 0;*/
+    padding: 88px 0 0;
   }
-  .header{
-    position: relative;
-    .exam-box{
-      position: relative;
-      top: -30px;
-      width: 36px;
-      height: 43px;
-      .icon-tag{
-        position: absolute;
-        right: -15px;
-        top: -5px;
-        background-color: #EB5050;
-        line-height: 30px;
-        border-radius: 15px;
-        min-width: 30px;
-        text-align: center;
-        color: #fff;
-        font-size: 24px;
-      }
-
-      .icon-exam{
-        width: 36px;
-        height: 43px;
-      }
-    }
-  }
-  .tabs{
+  .tabs {
     position: fixed;
     width: 100%;
-    top: 88px;
+    top:0;
     z-index: 9999;
   }
 
@@ -228,6 +200,7 @@
         display: flex;
         flex-direction: column;
         justify-content: space-between;
+
         .item-title {
           display: inline-block;
           width: 340px;
@@ -238,7 +211,8 @@
         .time {
           margin: 20px 0;
         }
-        .item-info-footer{
+
+        .item-info-footer {
           display: flex;
           flex-direction: row;
           justify-content: space-between;

@@ -1,36 +1,34 @@
 module.exports = {
   pages: [
-
     {
-      path: 'pages/study/index',
+      path: 'pages/study/exam/index',
       config: {
-        enablePullDownRefresh: true
-      }
-    },
-    {
-      path: 'pages/login/login',
-      config: {
-        navigationBarTitleText: '登录'
-      }
-    },
-    {
-      path: 'pages/login/index',
-      config: {
-        navigationBarTitleText: '微信登录'
+        enablePullDownRefresh: true,
+        navigationBarTitleText: '我的考试'
       }
     },
     {
       path: 'pages/discover/index',
       config: {
-        enablePullDownRefresh: true
+        enablePullDownRefresh: true,
+        navigationBarTitleText: '发现'
       }
     },
-    // {
-    //   path: 'pages/study/index',
-    //     config: {
-    //   enablePullDownRefresh: true
-    // }
-    // },
+    {
+      path: 'pages/discover/list',
+      config: {
+        enablePullDownRefresh: true,
+        navigationBarTitleText: '全部课程'
+      }
+    },
+    {
+      path: 'pages/study/index',
+      config: {
+        enablePullDownRefresh: true,
+        navigationBarTitleText: '我的学习'
+
+      }
+    },
     {
       path: 'pages/my/index'
     },
@@ -46,6 +44,18 @@ module.exports = {
     {
       path: 'pages/counter',
       config: {
+      }
+    },
+    {
+      path: 'pages/login/login',
+      config: {
+        navigationBarTitleText: '登录'
+      }
+    },
+    {
+      path: 'pages/login/index',
+      config: {
+        navigationBarTitleText: '微信登录'
       }
     }
   ],
@@ -94,6 +104,7 @@ module.exports = {
     'van-tabs': 'vant-weapp/dist/tabs/index',
     'van-field': 'vant-weapp/dist/field/index',
     'van-popup': 'vant-weapp/dist/popup/index',
-    'van-icon': 'vant-weapp/dist/icon/index'
+    'van-icon': 'vant-weapp/dist/icon/index',
+    'van-tag': 'vant-weapp/dist/tag/index'
   }
 }

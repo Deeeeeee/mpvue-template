@@ -25,19 +25,35 @@ fly.interceptors.request.use((request) => {
   request.headers['accesstoken'] = 'PzjMOE-1573810236466'
   request.headers['root'] = 3
 
-  let authParams = {
-    //公共参数
-  }
-
-  request.body && Object.keys(request.body).forEach((val) => {
-    if (request.body[val] === '') {
-      delete request.body[val]
+  // let authParams = {
+  //   //公共参数
+  // }
+  let ret = ''
+  let data = request.body
+  for (const key in data) {
+    let newKey = encodeURIComponent(key)
+    // 检查value值 如果值为数组或对象 先转成Json字符串 再传值
+    let newValue = ''
+    if (typeof data[key] === 'object' && data[key] !== null && data[key] !== undefined) {
+      // console.log('监测到对象元素' + key)
+      newValue = encodeURIComponent(JSON.stringify(data[key]))
+    } else {
+      newValue = encodeURIComponent(data[key])
     }
-  })
-  request.body = {
-    ...request.body,
-    ...authParams
+    ret += newKey + '=' + newValue + '&'
   }
+  ret = ret.substring(0, ret.length - 1)
+  //
+  // request.body && Object.keys(request.body).forEach((val) => {
+  //   if (request.body[val] === '') {
+  //     delete request.body[val]
+  //   }
+  // })
+  // request.body = {
+  //   ...request.body,
+  //   ...authParams
+  // }
+  request.body = ret
   return request
 })
 

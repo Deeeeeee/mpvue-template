@@ -1,78 +1,42 @@
 <template>
-  <div class="main-container">
-    <ul class="base-list">
-      <li v-for="(item,index) in list" :key="index">
-       {{item.name}}
-      </li>
-    </ul>
-  </div>
+  <view class="page">
+    <image class="banner" src="https://oss.zhihanyun.com/FopHNdEjtoi-VgJ9yQ0SR3VR_AbD"></image>
+    <base-title title="公开课程" rightText="全部课程" url="/pages/discover/list"></base-title>
+    <public-course-list :scrollOutParams="{statusList: [101]}"></public-course-list>
+  </view>
 </template>
 
 <script>
-import {openClassList} from '@/api/openClass'
-export default {
-  components: {
-  },
-  data () {
-    return {
-      list: [],
-      searchParams: {
-        page: 1,
-        size: 10
-      },
-      loading: false,
-      finished: false,
-      finishedText: '没有更多了',
-      noData: false
-    }
-  },
-  onLoad () {
-    this.getData()
-  },
-  onPullDownRefresh() {
-    console.log('> 刷新中...')
-    this.getData()
-  },
-  onReachBottom() {
-    console.log('> 触底 load more...')
-  },
-  methods: {
-    /**
-     * 获取数据
-     * @param isRefresh {boolean} 是否刷新
-     */
-    getData (isRefresh) {
-      // this.searchParams = {...this.searchParams, ...this.searchParams}
-      // this.loading = true
-      // this.noData = false
-      if (isRefresh) {
-        this.searchParams.page = 1
-      }
-      openClassList(this.searchParams).then(({ data }) => {
-        wx.stopPullDownRefresh()
-        if (isRefresh) {
-          this.list = data.array || []
-        } else {
-          this.list = [...this.list, ...data.array || []]
-        }
-        this.searchParams.page += 1
-      }).catch(() => {
-        wx.stopPullDownRefresh()
-      })
-    }
-  }
+  // import { coursePersonList } from '@/api/study'
+  import BaseTitle from '@/components/BaseTitle'
+  import PublicCourseList from './_components/PublicCourseList'
 
-}
+  export default {
+    components: { BaseTitle, PublicCourseList },
+    data () {
+      return {
+      }
+    },
+    mixins: [],
+    onLoad () {
+    },
+    methods: {
+    }
+
+  }
 </script>
 
-<style lang="less">
-.log-list {
-  display: flex;
-  flex-direction: column;
-  padding: 40rpx;
-}
-
-.log-item {
-  margin: 10rpx;
-}
+<style lang="less" scoped>
+  .page {
+    padding: 0;
+    background-color: #fff;
+    .banner {
+      width: 690px;
+      height: 326px;
+      display: block;
+      margin: 0 auto;
+      border-radius: 8px;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, .1);
+    }
+  }
 </style>
