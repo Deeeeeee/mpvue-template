@@ -1,6 +1,12 @@
 module.exports = {
   pages: [
     {
+      path: 'pages/login/login',
+      config: {
+        navigationBarTitleText: '登录'
+      }
+    },
+    {
       path: 'pages/study/exam/index',
       config: {
         enablePullDownRefresh: true,
@@ -46,12 +52,12 @@ module.exports = {
       config: {
       }
     },
-    {
-      path: 'pages/login/login',
-      config: {
-        navigationBarTitleText: '登录'
-      }
-    },
+    // {
+    //   path: 'pages/login/login',
+    //   config: {
+    //     navigationBarTitleText: '登录'
+    //   }
+    // },
     {
       path: 'pages/login/index',
       config: {

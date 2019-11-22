@@ -122,9 +122,10 @@
   import { isvalidatePhone, isValidateCaptcha, isValidatePassword } from '@/utils/validate'
   import { captchaCode, captchaValid, passwordReset } from '@/api/login'
   import { getStore } from '@/utils'
+  import BaseCaptchaInput from '@/components/BaseCaptchaInput'
 
   export default {
-    components: {},
+    components: {BaseCaptchaInput},
 
     data () {
       return {
@@ -346,7 +347,9 @@
 </style>
 <style lang="less" scoped>
   @import "../../styles/_variate";
-
+  .page{
+    background-color: #fff;
+  }
   .logo {
     display: block;
     width: 341px;
