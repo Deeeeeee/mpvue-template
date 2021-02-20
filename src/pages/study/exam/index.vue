@@ -37,7 +37,7 @@
             </view>
             <!--{{item.paperType}}-{{item.status}}-->
             <view>
-              <button type="primary" size="mini" v-if="item.paperType === 101 && item.status === 100"
+              <!-- <button type="primary" size="mini" v-if="item.paperType === 101 && item.status === 100"
               >开始学习
               </button>
               <button type="primary" size="mini"
@@ -45,7 +45,7 @@
               >继续学习
               </button>
               <button type="primary" size="mini" v-if="item.paperType === 100 && item.status === 100" disabled>开始学习
-              </button>
+              </button> -->
             </view>
           </view>
         </view>
